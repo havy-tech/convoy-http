@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http\Sse;
+namespace Phalanx\Http\Sse;
 
 final class SseEncoder
 {

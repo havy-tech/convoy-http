@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http\Tests\Unit;
+namespace Phalanx\Http\Tests\Unit;
 
-use Convoy\Http\RouteConfig;
+use Phalanx\Http\RouteConfig;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

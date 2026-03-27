@@ -1,4 +1,4 @@
-# convoy/http
+# phalanx/http
 
 Async HTTP server built on ReactPHP with scope-driven request handling. Every route handler receives an `ExecutionScope` with full access to concurrent task execution, service injection, and cancellation -- write concurrent data-fetching code that reads like sequential PHP.
 
@@ -20,24 +20,26 @@ Async HTTP server built on ReactPHP with scope-driven request handling. Every ro
 ## Installation
 
 ```bash
-composer require convoy/http
+composer require phalanx/http
 ```
 
-Requires PHP 8.4+, `convoy/core`, `react/http`, and `nikic/fast-route`.
+Requires PHP 8.4+, `phalanx/core`, `react/http`, and `nikic/fast-route`.
 
 ## Quick Start
 
 ```php
-use Convoy\Http\Route;
-use Convoy\Http\RouteGroup;
-use Convoy\Http\Runner;
+<?php
+
+use Phalanx\Http\Route;
+use Phalanx\Http\RouteGroup;
+use Phalanx\Http\Runner;
 use React\Http\Message\Response;
 
 $app = Application::starting()->compile();
 
 $routes = RouteGroup::of([
     'GET /hello' => new Route(
-        fn: static fn($scope) => Response::plaintext('Hello, Convoy!'),
+        fn: static fn($scope) => Response::plaintext('Hello, Phalanx!'),
     ),
 ]);
 
@@ -48,7 +50,7 @@ Runner::from($app)
 
 ```
 $ curl http://localhost:8080/hello
-Hello, Convoy!
+Hello, Phalanx!
 ```
 
 ## Defining Routes
@@ -56,7 +58,9 @@ Hello, Convoy!
 A `Route` wraps a closure and a `RouteConfig`. The closure receives a `RequestScope` (which extends `ExecutionScope`) at dispatch time:
 
 ```php
-use Convoy\Http\Route;
+<?php
+
+use Phalanx\Http\Route;
 use React\Http\Message\Response;
 
 $route = new Route(
@@ -70,6 +74,8 @@ $route = new Route(
 Route keys use the `METHOD /path` format. Multiple methods can be comma-separated:
 
 ```php
+<?php
+
 $routes = RouteGroup::of([
     'GET /users'        => $listUsers,
     'POST /users'       => $createUser,
@@ -82,7 +88,9 @@ $routes = RouteGroup::of([
 `RouteGroup` collects routes into a dispatch table backed by FastRoute. Build from an array or use the fluent API:
 
 ```php
-use Convoy\Http\RouteGroup;
+<?php
+
+use Phalanx\Http\RouteGroup;
 
 // From an array
 $routes = RouteGroup::of([
@@ -106,6 +114,8 @@ $all = $apiRoutes->merge($adminRoutes);
 Path parameters use `{name}` syntax with optional regex constraints:
 
 ```php
+<?php
+
 $routes = RouteGroup::of([
     // Basic parameter
     'GET /users/{id}' => new Route(
@@ -130,11 +140,13 @@ The `RequestScope` exposes `$request`, `$params`, `$query`, and `$config` throug
 
 ## Concurrent Request Handling
 
-Every route handler has access to Convoy's concurrency primitives through the scope. Fetch data from multiple sources concurrently within a single request:
+Every route handler has access to Phalanx's concurrency primitives through the scope. Fetch data from multiple sources concurrently within a single request:
 
 ```php
-use Convoy\Http\Route;
-use Convoy\Task;
+<?php
+
+use Phalanx\Http\Route;
+use Phalanx\Task;
 use React\Http\Message\Response;
 
 $dashboard = new Route(
@@ -161,6 +173,8 @@ Three I/O operations, one request, wall-clock time of the slowest. The handler r
 Wrap an entire route group with middleware. Middleware receives the scope before the matched route handler:
 
 ```php
+<?php
+
 $api = RouteGroup::of([
     'GET /me'       => $getProfile,
     'PUT /me'       => $updateProfile,
@@ -173,6 +187,8 @@ $api = RouteGroup::of([
 Nest route groups under a path prefix with `mount()`:
 
 ```php
+<?php
+
 $v1 = RouteGroup::of([
     'GET /users'  => $listUsers,
     'POST /users' => $createUser,
@@ -195,7 +211,9 @@ Requests to `/api/v1/users` and `/api/v2/users` dispatch to their respective han
 `RouteLoader` scans a directory of PHP files that each return a `RouteGroup`:
 
 ```php
-use Convoy\Http\RouteLoader;
+<?php
+
+use Phalanx\Http\RouteLoader;
 
 $routes = RouteLoader::loadDirectory(__DIR__ . '/routes');
 ```
@@ -203,9 +221,11 @@ $routes = RouteLoader::loadDirectory(__DIR__ . '/routes');
 Each file defines its routes:
 
 ```php
+<?php
+
 // routes/users.php
-use Convoy\Http\Route;
-use Convoy\Http\RouteGroup;
+use Phalanx\Http\Route;
+use Phalanx\Http\RouteGroup;
 
 return RouteGroup::of([
     'GET /users'      => new Route(fn: static fn($scope) => /* ... */),
@@ -217,6 +237,8 @@ return RouteGroup::of([
 `Runner` accepts directory paths directly:
 
 ```php
+<?php
+
 Runner::from($app)
     ->withRoutes(__DIR__ . '/routes')
     ->run();
@@ -231,9 +253,11 @@ Push real-time updates to clients with `SseResponse` and `SseChannel`.
 `SseResponse` converts an `Emitter` into a streaming HTTP response:
 
 ```php
-use Convoy\Http\Route;
-use Convoy\Http\Sse\SseResponse;
-use Convoy\Stream\Emitter;
+<?php
+
+use Phalanx\Http\Route;
+use Phalanx\Http\Sse\SseResponse;
+use Phalanx\Stream\Emitter;
 
 $events = new Route(
     fn: static function ($scope) {
@@ -255,7 +279,9 @@ $events = new Route(
 `SseChannel` manages multiple connected clients with automatic replay on reconnect:
 
 ```php
-use Convoy\Http\Sse\SseChannel;
+<?php
+
+use Phalanx\Http\Sse\SseChannel;
 
 // Register the channel as a service
 $channel = new SseChannel(bufferSize: 200, defaultEvent: 'update');
@@ -274,6 +300,8 @@ Missed events replay automatically when a client reconnects with `Last-Event-ID`
 The runner supports UDP alongside HTTP on the same event loop:
 
 ```php
+<?php
+
 Runner::from($app)
     ->withRoutes($routes)
     ->withUdp(
@@ -289,10 +317,12 @@ HTTP on 8080, UDP on 8081, single process.
 
 ## WebSocket Integration
 
-The HTTP runner handles WebSocket upgrades natively. See [convoy/websocket](../convoy-websocket/README.md) for the WebSocket API, then wire it in:
+The HTTP runner handles WebSocket upgrades natively. See [phalanx/websocket](../phalanx-websocket/README.md) for the WebSocket API, then wire it in:
 
 ```php
-use Convoy\WebSocket\WsRouteGroup;
+<?php
+
+use Phalanx\WebSocket\WsRouteGroup;
 
 Runner::from($app)
     ->withRoutes($httpRoutes)

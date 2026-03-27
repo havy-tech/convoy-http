@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\ExecutionScope;
+use Phalanx\ExecutionScope;
 use Psr\Http\Message\ServerRequestInterface;
 
 interface RequestScope extends ExecutionScope

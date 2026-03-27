@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\ExecutionScope;
-use Convoy\Support\ExecutionScopeDelegate;
+use Phalanx\ExecutionScope;
+use Phalanx\Support\ExecutionScopeDelegate;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class ExecutionContext implements RequestScope

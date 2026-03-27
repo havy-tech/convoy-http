@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\ExecutionScope;
-use Convoy\Handler\Handler;
-use Convoy\Handler\HandlerMatcher;
-use Convoy\Handler\MatchResult;
+use Phalanx\ExecutionScope;
+use Phalanx\Handler\Handler;
+use Phalanx\Handler\HandlerMatcher;
+use Phalanx\Handler\MatchResult;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class RouteMatcher implements HandlerMatcher

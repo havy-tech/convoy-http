@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\AppHost;
+use Phalanx\AppHost;
 use Symfony\Component\Runtime\GenericRuntime;
 use Symfony\Component\Runtime\RunnerInterface;
 
@@ -19,9 +19,9 @@ final class Runtime extends GenericRuntime
      */
     public function __construct(array $options = [])
     {
-        $this->host = (string) ($options['host'] ?? $options['CONVOY_HOST'] ?? '0.0.0.0');
-        $this->port = (int) ($options['port'] ?? $options['CONVOY_PORT'] ?? 8080);
-        $this->requestTimeout = (float) ($options['request_timeout'] ?? $options['CONVOY_REQUEST_TIMEOUT'] ?? 30.0);
+        $this->host = (string) ($options['host'] ?? $options['PHALANX_HOST'] ?? '0.0.0.0');
+        $this->port = (int) ($options['port'] ?? $options['PHALANX_PORT'] ?? 8080);
+        $this->requestTimeout = (float) ($options['request_timeout'] ?? $options['PHALANX_REQUEST_TIMEOUT'] ?? 30.0);
         parent::__construct($options);
     }
 

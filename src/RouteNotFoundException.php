@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
 final class RouteNotFoundException extends \RuntimeException
 {

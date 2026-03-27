@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\Handler\Handler;
+use Phalanx\Handler\Handler;
 use FastRoute\ConfigureRoutes;
 use FastRoute\Dispatcher;
 

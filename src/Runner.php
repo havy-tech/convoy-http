@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\AppHost;
-use Convoy\Concurrency\CancellationToken;
-use Convoy\Support\SignalHandler;
-use Convoy\Trace\TraceType;
-use Convoy\WebSocket\WsRouteGroup;
+use Phalanx\AppHost;
+use Phalanx\Concurrency\CancellationToken;
+use Phalanx\Support\SignalHandler;
+use Phalanx\Trace\TraceType;
+use Phalanx\WebSocket\WsRouteGroup;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use React\Datagram\Factory as DatagramFactory;
@@ -41,7 +41,7 @@ final class Runner
     /** @var list<\React\Datagram\Socket> */
     private array $udpSockets = [];
 
-    /** @var ?callable(\Convoy\ExecutionScope, \React\Stream\DuplexStreamInterface, \Psr\Http\Message\ServerRequestInterface): ?\Psr\Http\Message\ResponseInterface */
+    /** @var ?callable(\Phalanx\ExecutionScope, \React\Stream\DuplexStreamInterface, \Psr\Http\Message\ServerRequestInterface): ?\Psr\Http\Message\ResponseInterface */
     private $onUpgrade = null;
 
     private function __construct(

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
-use Convoy\AppHost;
-use Convoy\Task\Executable;
+use Phalanx\AppHost;
+use Phalanx\Task\Executable;
 use Symfony\Component\Runtime\RunnerInterface;
 
 final class ReactRunner implements RunnerInterface
@@ -38,11 +38,11 @@ final class ReactRunner implements RunnerInterface
 
         if ($handler instanceof RouteGroup) {
             $runner->withRoutes($handler);
-        } elseif ($handler instanceof \Convoy\Handler\HandlerGroup) {
+        } elseif ($handler instanceof \Phalanx\Handler\HandlerGroup) {
             $runner->withRoutes(RouteGroup::fromHandlerGroup($handler));
         } else {
             $runner->withRoutes(RouteGroup::fromHandlerGroup(
-                \Convoy\Handler\HandlerGroup::of(['default' => new \Convoy\Handler\Handler($handler, new \Convoy\Handler\HandlerConfig())]),
+                \Phalanx\Handler\HandlerGroup::of(['default' => new \Phalanx\Handler\Handler($handler, new \Phalanx\Handler\HandlerConfig())]),
             ));
         }
 

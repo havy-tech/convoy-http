@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http;
+namespace Phalanx\Http;
 
 use Closure;
-use Convoy\Scope;
-use Convoy\Task\Scopeable;
+use Phalanx\Scope;
+use Phalanx\Task\Scopeable;
 
 /**
  * HTTP route handler as an invokable with fn + config.

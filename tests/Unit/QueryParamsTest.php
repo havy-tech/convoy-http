@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http\Tests\Unit;
+namespace Phalanx\Tests\Http\Unit;
 
-use Convoy\Http\QueryParams;
+use Phalanx\Http\QueryParams;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

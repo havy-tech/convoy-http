@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Convoy\Http\Sse;
+namespace Phalanx\Http\Sse;
 
-use Convoy\ExecutionScope;
-use Convoy\Stream\Emitter;
+use Phalanx\ExecutionScope;
+use Phalanx\Stream\Emitter;
 use Psr\Http\Message\ResponseInterface;
 use React\Http\Message\Response;
 use React\Stream\ThroughStream;
@@ -34,7 +34,7 @@ final class SseResponse
                     $data = is_string($item) ? $item : json_encode($item, JSON_THROW_ON_ERROR);
                     $stream->write(SseEncoder::encode($data, $event, (string) ++$id));
                 }
-            } catch (\Convoy\Exception\CancelledException) {
+            } catch (\Phalanx\Exception\CancelledException) {
             } catch (\Throwable $e) {
                 fwrite(STDERR, "SSE pump error: {$e->getMessage()}\n");
             } finally {

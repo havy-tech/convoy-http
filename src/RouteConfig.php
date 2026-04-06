@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Http;
+namespace Convoy\Http;
 
-use Phalanx\Handler\HandlerConfig;
-use Phalanx\Task\Executable;
-use Phalanx\Task\Scopeable;
+use Convoy\Handler\HandlerConfig;
+use Convoy\Task\Executable;
+use Convoy\Task\Scopeable;
 
 /**
  * HTTP route configuration with path matching and middleware.

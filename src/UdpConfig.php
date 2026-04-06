@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Http;
+namespace Convoy\Http;
 
 final readonly class UdpConfig
 {

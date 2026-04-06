@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Http\Sse;
+namespace Convoy\Http\Sse;
 
 use React\Stream\WritableStreamInterface;
 use WeakMap;
@@ -28,9 +28,8 @@ final class SseChannel
     {
         $this->clients[$client] = true;
 
-        $clients = $this->clients;
-        $client->on('close', static function () use ($client, $clients): void {
-            unset($clients[$client]);
+        $client->on('close', function () use ($client): void {
+            unset($this->clients[$client]);
         });
 
         if ($lastEventId !== null) {

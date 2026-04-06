@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Http;
+namespace Convoy\Http;
 
-use Phalanx\AppHost;
-use Phalanx\Concurrency\CancellationToken;
-use Phalanx\Support\SignalHandler;
-use Phalanx\Trace\TraceType;
-use Phalanx\WebSocket\WsRouteGroup;
+use Convoy\AppHost;
+use Convoy\Concurrency\CancellationToken;
+use Convoy\Support\SignalHandler;
+use Convoy\Trace\TraceType;
+use Convoy\WebSocket\WsRouteGroup;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use React\Datagram\Factory as DatagramFactory;
@@ -41,7 +41,7 @@ final class Runner
     /** @var list<\React\Datagram\Socket> */
     private array $udpSockets = [];
 
-    /** @var ?callable(\Phalanx\ExecutionScope, \React\Stream\DuplexStreamInterface, \Psr\Http\Message\ServerRequestInterface): ?\Psr\Http\Message\ResponseInterface */
+    /** @var ?callable(\Convoy\ExecutionScope, \React\Stream\DuplexStreamInterface, \Psr\Http\Message\ServerRequestInterface): ?\Psr\Http\Message\ResponseInterface */
     private $onUpgrade = null;
 
     private function __construct(
@@ -206,11 +206,6 @@ final class Runner
                 'error' => 'Method Not Allowed',
                 'message' => $e->getMessage(),
             ])->withStatus(405)->withHeader('Allow', implode(', ', $e->allowedMethods));
-        } catch (ValidationException $e) {
-            return Response::json([
-                'error' => 'Validation Failed',
-                'errors' => $e->errors,
-            ])->withStatus(422);
         } catch (\Throwable $e) {
             $trace->log(TraceType::Failed, 'request', ['error' => $e->getMessage()]);
 
@@ -283,9 +278,8 @@ final class Runner
             return;
         }
 
-        $shutdownRequested = &$this->shutdownRequested;
-        $this->windowsTimer = Loop::addPeriodicTimer(0.1, static function () use (&$shutdownRequested): void {
-            if ($shutdownRequested) {
+        $this->windowsTimer = Loop::addPeriodicTimer(0.1, function () {
+            if ($this->shutdownRequested) {
                 Loop::stop();
             }
         });
@@ -293,10 +287,8 @@ final class Runner
 
     private function createShutdownHandler(): callable
     {
-        $shutdown = $this->shutdown(...);
-
-        return static function () use ($shutdown): void {
-            $shutdown();
+        return function (): void {
+            $this->shutdown();
         };
     }
 
@@ -332,14 +324,6 @@ final class Runner
 
     public static function toResponse(mixed $data): ResponseInterface
     {
-        if ($data instanceof ResponseInterface) {
-            return $data;
-        }
-
-        if ($data instanceof ToResponse) {
-            return $data->toResponse();
-        }
-
         if (is_array($data) || is_object($data)) {
             return Response::json($data);
         }

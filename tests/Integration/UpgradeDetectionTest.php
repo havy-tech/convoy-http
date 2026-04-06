@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Tests\Http\Integration;
+namespace Convoy\Tests\Http\Integration;
 
-use Phalanx\Application;
-use Phalanx\ExecutionScope;
-use Phalanx\Http\Route;
-use Phalanx\Http\RouteConfig;
-use Phalanx\Http\RouteGroup;
-use Phalanx\Http\RouteMatcher;
-use Phalanx\Handler\Handler;
-use Phalanx\Task\Task;
+use Convoy\Application;
+use Convoy\ExecutionScope;
+use Convoy\Http\Route;
+use Convoy\Http\RouteConfig;
+use Convoy\Http\RouteGroup;
+use Convoy\Http\RouteMatcher;
+use Convoy\Handler\Handler;
+use Convoy\Task\Task;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -93,7 +93,7 @@ final class UpgradeDetectionTest extends TestCase
 
         $matcher = new RouteMatcher();
 
-        $this->expectException(\Phalanx\Http\RouteNotFoundException::class);
+        $this->expectException(\Convoy\Http\RouteNotFoundException::class);
         $this->expectExceptionMessage('No route matches');
 
         $matcher->match($scope, ['http' => $httpRoute]);

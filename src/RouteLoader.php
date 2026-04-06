@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Http;
+namespace Convoy\Http;
 
-use Phalanx\Handler\HandlerGroup;
-use Phalanx\Handler\HandlerLoader;
-use Phalanx\Scope;
+use Convoy\Handler\HandlerGroup;
+use Convoy\Handler\HandlerLoader;
+use Convoy\Scope;
 use RuntimeException;
 
 final readonly class RouteLoader

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Tests\Http\Unit;
+namespace Convoy\Tests\Http\Unit;
 
-use Phalanx\Http\Route;
-use Phalanx\Http\RouteConfig;
-use Phalanx\Http\RouteGroup;
-use Phalanx\Task\Task;
+use Convoy\Http\Route;
+use Convoy\Http\RouteConfig;
+use Convoy\Http\RouteGroup;
+use Convoy\Task\Task;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

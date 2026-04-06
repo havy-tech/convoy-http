@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Tests\Http\Integration;
+namespace Convoy\Tests\Http\Integration;
 
-use Phalanx\Application;
-use Phalanx\ExecutionScope;
-use Phalanx\Http\RouteGroup;
-use Phalanx\Http\Route;
-use Phalanx\Http\RouteConfig;
-use Phalanx\Task\Task;
+use Convoy\Application;
+use Convoy\ExecutionScope;
+use Convoy\Http\RouteGroup;
+use Convoy\Http\Route;
+use Convoy\Http\RouteConfig;
+use Convoy\Task\Task;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -80,7 +80,7 @@ final class RouteDispatchTest extends TestCase
         $scope = $this->app->createScope();
         $scope = $scope->withAttribute('request', $request);
 
-        $this->expectException(\Phalanx\Http\RouteNotFoundException::class);
+        $this->expectException(\Convoy\Http\RouteNotFoundException::class);
         $this->expectExceptionMessage('No route matches GET /posts');
 
         $scope->execute($group);

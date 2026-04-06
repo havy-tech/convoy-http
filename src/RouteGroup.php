@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Http;
+namespace Convoy\Http;
 
-use Phalanx\ExecutionScope;
-use Phalanx\Handler\Handler;
-use Phalanx\Handler\HandlerGroup;
-use Phalanx\Task\Executable;
-use Phalanx\Task\Scopeable;
+use Convoy\ExecutionScope;
+use Convoy\Handler\Handler;
+use Convoy\Handler\HandlerGroup;
+use Convoy\Task\Executable;
+use Convoy\Task\Scopeable;
 
 /**
  * Typed collection of HTTP routes.

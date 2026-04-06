@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Phalanx\Tests\Http\Integration;
+namespace Convoy\Tests\Http\Integration;
 
-use Phalanx\Http\Sse\SseChannel;
-use Phalanx\Http\Sse\SseEncoder;
+use Convoy\Http\Sse\SseChannel;
+use Convoy\Http\Sse\SseEncoder;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use React\Stream\ThroughStream;
